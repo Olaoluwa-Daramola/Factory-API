@@ -1,0 +1,418 @@
+FORMAT: 1A
+HOST: http://api.factory.zone/api/v1/project
+
+# Project API 
+Provides services for Project features 
+
+# Group Projects 
+Access to Project Resources
+
+All requests must be authenticated 
+
+## Add Project [/projects/add]
+
+### Create Project [POST]
+Create a Project owned by the currently authenticated user.
+
+The API endpoint may refuse to complete the request if the authenticated user has exceeded the total number of allowed projects for his or her account.
+
+
++ Request (application/json)
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    + Body
+            
+            {
+                "projectName" : "Loon"
+                "projectImagePath" : "http//factory.zone/Projects?id=1/image.png"
+                "projectDescription" : "Make Internet Baloons"
+                "projectDeadline" : "2018-01-31 00:00:01"
+            }    
+        
+            
+            
++ Response 201 (application/json)
+
+    + Headers 
+        
+            Location: /projects/:id
+    
+    + Body
+    
+            {
+                "projectName" : "Loon"
+                "projectImagePath" : "http//factory.zone/Projects?id=1/image.png"
+                "projectDescription" : "Make Internet Baloons"
+                "createdAt" : "2017-6-21 08:12:05"
+                "projectStatus" : 1
+                "projectDeadline" : "2018-01-31 00:00:01"
+                "is_archived": false
+            }
+
+## My Projects [/projects{?page,size}]
+### List my projects [GET]
+
++ Parameters
+    + page(required, number,`1`)...'page' number
+    + size(required, number, `10`)... page 'size'
++ Request
+
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    
++ Response 200 (application/json)
+ 
+    + Headers
+        
+            ETag : "euyfewuyfvew76f7"
+            cache-control: max-age=600
+    + Body        
+        
+            {
+                "page":
+                {
+                    "number":1,
+                    "size":10 
+                    "totalPages": 20
+                },
+                "projects":
+                [
+                    {
+                        "projectName" : "Ara"
+                        "projectImagePath" : "http//factory.zone/Projects?id=1/image.png"
+                        "projectDescription" : "Create modular phones"
+                        "createdAt" : "2017-6-21 08:12:05"
+                        "projectStatus": 1
+                        "projectDeadline" : "2017-12-01 13:21:14"
+                        "is_archived": false
+                    },
+                    {
+                        "projectName" : "Tango"
+                        "projectImagePath" : "http//factory.zone/Projects?id=1/image.png"
+                        "projectDescription" : "Make augumented reality real"
+                        "createdAt" : "2016-09-12 02:2:45"
+                        "projectStatus": 3
+                        "projectDeadline" : "2018-1-01 12:00:00"
+                        "is_archived": false
+                    },
+                    {
+                        "projectName" : "Waymo"
+                        "projectImagePath" : "http//factory.zone/Projects?id=1/image.png"
+                        "projectDescription" : "Create self-driving cars"
+                        "createdAt" : "2016-09-12 02:2:45"
+                        "projectStatus" : 2
+                        "projectDeadline" : "2018-1-01 12:00:00"
+                        "is_archived": true
+                    } 
+                ]
+            }
+
+## Project [/projects/{id}]
+
++ Parameters
+    + id(required, number,`1`)...project 'id' number
+
+### View Project [GET]
+
++ Request
+
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    
++ Response 200 (application/json)
+ 
+    + Headers
+        
+            ETag : "euyfewuyfvew76f7"
+            cache-control: max-age=600
+    + Body
+            
+            {
+                "projectName" : "Ara"
+                "projectImagePath" : "http//factory.zone/Projects?id=1/image.png"
+                "projectDescription" : "Create modular phones"
+                "createdAt" : "2017-6-21 08:12:05"
+                "projectStatus" :3
+                "projectDeadline" : "2017-12-01 13:21:14"
+                "is_archived": false
+            }
+
+### Edit Project [PUT]
++ Request (application/json)
+
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    + Body
+            
+            {
+                "projectName" : "Loon"
+                "projectImagePath" : "http//factory.zone/Projects?id=1/image.png"
+                "projectDescription" : "Make Baloons That Grant Internet Access"
+                "projectStatus" : 3
+                "projectDeadline" : "2018-01-31 00:00:01"
+                "is_archived": true
+            }    
+        
+            
+            
++ Response 200 (application/json)
+
+    + Headers 
+        
+            Location: /projects/:id
+    
+    + Body
+    
+            {
+                "projectName" : "Loon"
+                "projectImagePath" : "http//factory.zone/Projects?id=1/image.png"
+                "projectDescription" : "Make Baloons That Grant Internet Access"
+                "createdAt" : "2017-6-21 08:12:05"
+                "projectStatus" : 3
+                "projectDeadline" : "2018-01-31 00:00:01"
+                "is_archived": true
+                "updatedAt": "2017-6-21 11:10:35"
+            }
+       
+### Delete Project [DELETE]
+
++ Response 204
+
+
+# Group Task 
+Access to Project Task Resources
+
+## Add Task [/projects/{id}/tasks/]
+
++ Parameters
+    + id(required, number,`1`)...project 'id' number
+
+### Create Task [POST]
+Create a Task Assigned to a  Project owned by the currently authenticated user.
+
+The API endpoint may refuse to complete the request if the authenticated user has exceeded the total number of allowed tasks for his or her account.
+
++   Request (application/json)
+            +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    + Body
+            
+            {
+                "taskName" : "Research"
+                "taskDescription" : "Make findings into the proposed project"
+                "taskDeadline" : "2018-01-31 00:00:01"
+            }    
+        
+            
+            
++ Response 200 (application/json)
+
+    + Headers 
+        
+            Location: /projects/:id/task/:id
+    
+    + Body
+    
+            {
+                "taskName" : "Research"
+                "taskDescription" : "Make findings into the proposed project"
+                "tasktDeadline" : "2018-01-31 00:00:01"
+                "createdAt" : "2017-6-21 08:12:05"
+                "taskStatus" : 1
+                "taskDeadline" : "2018-01-31 00:00:01"
+            }
+
+### List Tasks [GET]
+
++ Request
+
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    
++ Response 200 (application/json)
+ 
+    + Headers
+        
+            ETag : "euyfewuyfvew76f7"
+            cache-control: max-age=600
+    + Body
+            
+            {
+                "tasks":
+                [
+                    {
+                        "taskName" : "Research"
+                        "taskDescription" : "Carry out research for project"
+                        "createdAt" : "2017-6-21 08:12:05"
+                        "taskStatus" :3
+                        "taskDeadline" : "2017-12-01 13:21:14"
+                    },
+                    {
+                        "taskName" : "Develop Wireframe"
+                        "taskDescription" : "Design Wireframe for project"
+                        "createdAt" : "2017-6-21 08:30:15"
+                        "taskStatus" :1
+                        "taskDeadline" : "2017-12-07 08:30:14"
+                    },
+                    {
+                        "taskName" : "Design Mock-up"
+                        "taskDescription" : "Design Mock-up for project"
+                        "createdAt" : "2017-6-21 08:40:05"
+                        "taskStatus" :2
+                        "taskDeadline" : "2018-01-01 00:00:00"
+                    },                    
+            }
+
+## Tasks [/project/{id1}/tasks/{id2}]
+
++ Parameters
+    + id1   (required, number, `4`)... project `id` number
+    + id2   (required, number, `1`)... task `id` number
+
+### View Tasks [GET]
+
++ Request
+
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    
++ Response 200 (application/json)
+ 
+    + Headers
+        
+            ETag : "euyfewuyfvew76f7"
+            cache-control: max-age=600
+    + Body
+            
+            {
+                "taskName" : "Research"
+                "taskDescription" : "Carry out research for project"
+                "createdAt" : "2017-6-21 08:12:05"
+                "taskStatus" :3
+                "taskDeadline" : "2017-12-01 13:21:14"
+            }
+
+### Edit Task [PUT]
+
++ Request (application/json)
+
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    + Body
+            
+            {
+                "taskName" : "Research"
+                "taskDescription" : "Make findings into the proposed project"
+                "taskDeadline" : "2018-01-31 00:00:01"
+            }    
+        
+            
+            
++ Response 200 (application/json)
+
+    + Headers 
+        
+            Location: /projects/:id/task:id
+    
+    + Body
+    
+            {
+                "taskName" : "Draw Wireframe"
+                "taskDescription" : "Make Wireframe of the project"
+                "taskDeadline" : "2018-01-31 00:00:01"
+                "updatedAT": "2018-02-31 03:20:00"
+            }
+
+### Delete Task [DELETE]
+
++ Response 204
+
+# Group Team 
+Access to Project Team Resources
+
+## Add Team [/projects/{id}/team]
+
++ Parameters
+    + id   (required, number, `4`)... project `id` number
+
+### Add Team [PUT]
+
++   Request (application/json)
+            +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    + Body
+            
+            {
+                "teamId" : 1
+            }    
+        
+            
+            
++ Response 200 (application/json)
+
+    + Headers 
+        
+            Location: /projects/:id/team/:id
+    
+    + Body
+    
+            {
+                "teamName": "DreamTeam"
+                "teamInfo": "Best team in the land"
+                "createdAt":"2017-12-01 13:21:14"
+            }
+
+## Team [/projects/{id1}/team/{id2}]
+
++ Parameters
+    + id1   (required, number, `2`)... project `id` number
+    + id2   (required, number, `1`)... task `id` number
+
+
+### View Team [GET]
+
++ Request
+
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    
++ Response 200 (application/json)
+ 
+    + Headers
+        
+            ETag : "euyfewuyfvew76f7"
+            cache-control: max-age=600
+
+    + Body
+    
+            {
+                "teamName": "DreamTeam"
+                "teamInfo": "Best team in the land"
+                "createdAt":"2017-12-01 13:21:14"
+                "updatedAt": "2017-12-01 21:00:00"
+            }
+
+
+### Delete Team [DELETE]
+
++ Response 204
