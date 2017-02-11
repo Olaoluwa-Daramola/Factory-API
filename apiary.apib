@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: http://api.factory.zone/api/v1/project
+HOST: http://api.factory.zone/api/v1/
 
 # Project API 
 Provides services for Project features 
@@ -15,7 +15,6 @@ All requests must be authenticated
 Create a Project owned by the currently authenticated user.
 
 The API endpoint may refuse to complete the request if the authenticated user has exceeded the total number of allowed projects for his or her account.
-
 
 + Request (application/json)
     +   Headers 
@@ -380,7 +379,7 @@ Access to Project Team Resources
                 "createdAt":"2017-12-01 13:21:14"
             }
 
-## Team [/projects/{project_id}/team/{team_id}]
+## Team [/projects/{Updaproject_id}/team/{team_id}]
 
 + Parameters
     + project_id(required, number, `2`)
