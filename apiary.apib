@@ -41,6 +41,7 @@ The API endpoint may refuse to complete the request if the authenticated user ha
     + Body
     
             {
+                "project_id": 1
                 "projectName" : "Loon"
                 "projectImagePath" : "http//factory.zone/Projects?id=1/image.png"
                 "projectDescription" : "Make Internet Baloons"
@@ -185,7 +186,6 @@ The API endpoint may refuse to complete the request if the authenticated user ha
 
 + Response 204
 
-
 # Group Task 
 Access to Project Task Resources
 
@@ -194,7 +194,7 @@ Access to Project Task Resources
 + Parameters
     + project_id(required, number,`1`)
 
-### Create Task [POST]
+### Add a Task [POST]
 Create a Task Assigned to a  Project owned by the currently authenticated user.
 
 The API endpoint may refuse to complete the request if the authenticated user has exceeded the total number of allowed tasks for his or her account.
@@ -223,6 +223,7 @@ The API endpoint may refuse to complete the request if the authenticated user ha
     + Body
     
             {
+                "task_id":1
                 "taskName" : "Research"
                 "taskDescription" : "Make findings into the proposed project"
                 "tasktDeadline" : "2018-01-31 00:00:01"
@@ -280,7 +281,7 @@ The API endpoint may refuse to complete the request if the authenticated user ha
     + project_id   (required, number, `4`)
     + task_id   (required, number, `1`)
 
-### View Tasks [GET]
+### View Task [GET]
 
 + Request
 
@@ -345,23 +346,60 @@ The API endpoint may refuse to complete the request if the authenticated user ha
 # Group Team 
 Access to Project Team Resources
 
-## Add Team [/projects/{project_id}/team]
+## Create Team [/teams/add]
 
-+ Parameters
-    + project_id(required, number, `4`)
+### Create Team [POST]
 
-### Add Team [PUT]
-
-+   Request (application/json)
-            +   Headers 
++ Request (application/json)
+    +   Headers 
             
             Authorization: Basic dXNlcjpwYXNzd29yZA==
             x-api-version: 1.0
     + Body
             
             {
-                "teamId" : 1
+                "TeamName" : "Artisan"
+                "TeamInfo" : "Artisan is a team of back-end craftsmen"
+                "project_id": 1
             }    
+        
+            
+            
++ Response 201 (application/json)
+
+    + Headers 
+        
+            Location: /projects/:id
+    
+    + Body
+    
+            {
+                "team_id": 1
+                "TeamName" : "Artisan"
+                "TeamInfo" : "Artisan is a team of back-end craftsmen"
+                "createdAt" : "2017-6-21 08:12:05"
+            }
+
+
+###
+
+## Team [/teams/{team_id}]
+
+### Edit Team [PUT]
+
++ Request (application/json)
+
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    + Body
+            
+            {
+                "TeamName" : "Artisan"
+                "TeamInfo" : "Artisan is a team of back-end ninjas"
+                "project_id": 1
+            }     
         
             
             
@@ -369,22 +407,15 @@ Access to Project Team Resources
 
     + Headers 
         
-            Location: /projects/:id/team/:id
+            Location: /team:id
     
     + Body
     
             {
-                "teamName": "DreamTeam"
-                "teamInfo": "Best team in the land"
-                "createdAt":"2017-12-01 13:21:14"
+                "TeamName" : "Artisan"
+                "TeamInfo" : "Artisan is a team of back-end ninjas"
+                "updatedAT": "2018-02-31 03:20:00"
             }
-
-## Team [/projects/{Updaproject_id}/team/{team_id}]
-
-+ Parameters
-    + project_id(required, number, `2`)
-    + team_id(required, number, `1`)
-
 
 ### View Team [GET]
 
@@ -411,7 +442,79 @@ Access to Project Team Resources
                 "updatedAt": "2017-12-01 21:00:00"
             }
 
-
 ### Delete Team [DELETE]
 
 + Response 204
+
+# Group Department
+
+## Create Department [/company/{company_id}/departments/add]
+
+### Create Department [POST]
+
+## View Departments [/company/{company_id}/departments{?page,size}]
+
+### View Departments[GET]
+
++ Parameters
+    + page(required, number,`1`)...'page' number
+    + size(required, number, `10`)... page 'size'
++ Request
+
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    
++ Response 200 (application/json)
+ 
+    + Headers
+        
+            ETag : "euyfewuyfvew76f7"
+            cache-control: max-age=600
+    + Body        
+        
+            {
+                "page":
+                {
+                    "number":1,
+                    "size":10 
+                    "totalPages": 20
+                },
+                "departments":
+                [
+                    {
+                        "departmentName" : "Design"
+                        "departmentInfo" : "They make everything look great and they really shouldn't be with marketing"
+                        "createdAt" : "2017-6-21 08:12:05"
+                        "updatedAt" : "2017-12-01 13:21:14"
+                    },
+                    {
+                        "departmentName" : "Marketing"
+                        "departmentInfo" : "They sell your product, they can sell you a pile of poop"
+                        "createdAt" : "2017-6-21 08:12:05"
+                        "updatedAt" : "2017-12-01 13:21:14"
+                    },
+                    {
+                        "departmentName" : "Sales"
+                        "departmentInfo" : "They close the deal, doesn't seem like too much work"
+                        "createdAt" : "2017-6-21 08:12:05"
+                        "updatedAt" : "2017-12-01 13:21:14"
+                    }
+                ]
+            }
+                    
+## Department [/company/{company_id}/departments/{department_id}]
+
+### Edit Department [PUT]
+
+### View Department [GET]
+
+### Delete Department [DELETE]
+
+
+# Group Company 
+
+# Group Employee 
+
+# Notice Board
