@@ -9,7 +9,7 @@ Access to Project Resources
 
 All requests must be authenticated 
 
-## Add Project [/projects/add]
+## Projects[/projects{?page,size}]
 
 ### Create Project [POST]
 Create a Project owned by the currently authenticated user.
@@ -24,6 +24,8 @@ The API endpoint may refuse to complete the request if the authenticated user ha
     + Body
             
             {
+                "company_id" : 1
+                "department_id" : 2
                 "projectName" : "Loon"
                 "projectImagePath" : "http//factory.zone/Projects?id=1/image.png"
                 "projectDescription" : "Make Internet Baloons"
@@ -41,6 +43,8 @@ The API endpoint may refuse to complete the request if the authenticated user ha
     + Body
     
             {
+                "company_id":1
+                "department_id": 2
                 "project_id": 1
                 "projectName" : "Loon"
                 "projectImagePath" : "http//factory.zone/Projects?id=1/image.png"
@@ -51,8 +55,7 @@ The API endpoint may refuse to complete the request if the authenticated user ha
                 "is_archived": false
             }
 
-## My Projects [/projects{?page,size}]
-### List my projects [GET]
+### List Projects [GET]
 
 + Parameters
     + page(required, number,`1`)...'page' number
@@ -82,6 +85,9 @@ The API endpoint may refuse to complete the request if the authenticated user ha
                 "projects":
                 [
                     {
+                        "company_id":3
+                        "department_id": 2
+                        "project_id": 1
                         "projectName" : "Ara"
                         "projectImagePath" : "http//factory.zone/Projects?id=1/image.png"
                         "projectDescription" : "Create modular phones"
@@ -91,6 +97,9 @@ The API endpoint may refuse to complete the request if the authenticated user ha
                         "is_archived": false
                     },
                     {
+                        "company_id":1
+                        "department_id": 3
+                        "project_id": 1
                         "projectName" : "Tango"
                         "projectImagePath" : "http//factory.zone/Projects?id=1/image.png"
                         "projectDescription" : "Make augumented reality real"
@@ -100,6 +109,9 @@ The API endpoint may refuse to complete the request if the authenticated user ha
                         "is_archived": false
                     },
                     {
+                        "company_id":1
+                        "department_id": 3
+                        "project_id": 1
                         "projectName" : "Waymo"
                         "projectImagePath" : "http//factory.zone/Projects?id=1/image.png"
                         "projectDescription" : "Create self-driving cars"
@@ -134,6 +146,8 @@ The API endpoint may refuse to complete the request if the authenticated user ha
     + Body
             
             {
+                "company_id" : 1
+                "department_id" : 2
                 "projectName" : "Ara"
                 "projectImagePath" : "http//factory.zone/Projects?id=1/image.png"
                 "projectDescription" : "Create modular phones"
@@ -189,7 +203,7 @@ The API endpoint may refuse to complete the request if the authenticated user ha
 # Group Task 
 Access to Project Task Resources
 
-## Add Task [/projects/{project_id}/tasks/]
+## Tasks [/projects/{project_id}/tasks/]
 
 + Parameters
     + project_id(required, number,`1`)
@@ -207,6 +221,7 @@ The API endpoint may refuse to complete the request if the authenticated user ha
     + Body
             
             {
+                "project_id" : "1"
                 "taskName" : "Research"
                 "taskDescription" : "Make findings into the proposed project"
                 "taskDeadline" : "2018-01-31 00:00:01"
@@ -275,7 +290,7 @@ The API endpoint may refuse to complete the request if the authenticated user ha
                     },                    
             }
 
-## Tasks [/project/{project_id}/tasks/{task_id}]
+## Task [/project/{project_id}/tasks/{task_id}]
 
 + Parameters
     + project_id   (required, number, `4`)
@@ -299,6 +314,9 @@ The API endpoint may refuse to complete the request if the authenticated user ha
     + Body
             
             {
+                "company_id": 1
+                "department_id": 2
+                "project_id":1
                 "taskName" : "Research"
                 "taskDescription" : "Carry out research for project"
                 "createdAt" : "2017-6-21 08:12:05"
@@ -333,6 +351,9 @@ The API endpoint may refuse to complete the request if the authenticated user ha
     + Body
     
             {
+                "company_id": 1
+                "department_id": 2
+                "project_id":1
                 "taskName" : "Draw Wireframe"
                 "taskDescription" : "Make Wireframe of the project"
                 "taskDeadline" : "2018-01-31 00:00:01"
@@ -374,6 +395,9 @@ Access to Project Team Resources
     + Body
     
             {
+                "company_id": 1
+                "department_id": 2
+                "team_id":2
                 "TeamName" : "Artisan"
                 "TeamInfo" : "Artisan is a team of back-end craftsmen"
                 "createdAt" : "2017-6-21 08:12:05"
@@ -432,6 +456,9 @@ Access to Project Team Resources
     + Body
     
             {
+                "company_id": 1
+                "department_id": 2
+                "team_id":2
                 "teamName": "DreamTeam"
                 "teamInfo": "Best team in the land"
                 "createdAt":"2017-12-01 13:21:14"
@@ -444,7 +471,7 @@ Access to Project Team Resources
 
 # Group Department
 
-## Create Department [/company/{company_id}/departments/add]
+## Create Department [/company/{company_id}/departments{?page,size}]
 
 ### Create Department [POST]
 
@@ -471,12 +498,12 @@ Access to Project Team Resources
     + Body
     
             {
+                "company_id":1
+                "department_id":1
                 "departmentName" : "Sales"
                 "departmentInfo" : "They close the deal, doesn't seem like too much work"
                 "createdAt" : "2017-6-21 08:12:05"
             }
-
-## View Departments [/company/{company_id}/departments{?page,size}]
 
 ### View Departments[GET]
 
@@ -509,18 +536,24 @@ Access to Project Team Resources
                 "departments":
                 [
                     {
+                        "company_id":1
+                        "department_id":1
                         "departmentName" : "Design"
                         "departmentInfo" : "They make everything look great and they really shouldn't be with marketing"
                         "createdAt" : "2017-6-21 08:12:05"
                         "updatedAt" : "2017-12-01 13:21:14"
                     },
                     {
+                        "company_id":1
+                        "department_id":2
                         "departmentName" : "Marketing"
                         "departmentInfo" : "They sell your product, they can sell you a pile of poop"
                         "createdAt" : "2017-6-21 08:12:05"
                         "updatedAt" : "2017-12-01 13:21:14"
                     },
                     {
+                        "company_id":1
+                        "department_id":3
                         "departmentName" : "Sales"
                         "departmentInfo" : "They close the deal, doesn't seem like too much work"
                         "createdAt" : "2017-6-21 08:12:05"
@@ -529,7 +562,7 @@ Access to Project Team Resources
                 ]
             }
 
-## Department [/company/{company_id}/departments/{department_id\}]
+## Department [/company/{company_id}/departments/{department_id}]
 
 ### Edit Department [PUT]
 
@@ -557,6 +590,8 @@ Access to Project Team Resources
     + Body
     
             {
+                "company_id":1
+                "department_id":1
                 "departmentName" : "Design"
                 "departmentInfo" : "They make everything look shiny and they really shouldn't be with marketing"
                 "createdAt" : "2017-6-21 08:12:05"
@@ -582,6 +617,8 @@ Access to Project Team Resources
     + Body
     
             {
+                "company_id":1
+                "department_id":1
                 "departmentName" : "Design"
                 "departmentInfo" : "They make everything look great and they really shouldn't be with marketing"
                 "createdAt" : "2017-6-21 08:12:05"
@@ -594,7 +631,7 @@ Access to Project Team Resources
 
 # Group Company
 
-## Create Company [/company/add]
+## Create Company [/company]
 
 ### Create Company[POST]
 
