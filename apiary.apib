@@ -111,10 +111,10 @@ The API endpoint may refuse to complete the request if the authenticated user ha
                 ]
             }
 
-## Project [/projects/{id}]
+## Project [/projects/{project_id}]
 
 + Parameters
-    + id(required, number,`1`)...project 'id' number
+    + project_id(required, number,`1`)
 
 ### View Project [GET]
 
@@ -190,10 +190,10 @@ The API endpoint may refuse to complete the request if the authenticated user ha
 # Group Task 
 Access to Project Task Resources
 
-## Add Task [/projects/{id}/tasks/]
+## Add Task [/projects/{project_id}/tasks/]
 
 + Parameters
-    + id(required, number,`1`)...project 'id' number
+    + project_id(required, number,`1`)
 
 ### Create Task [POST]
 Create a Task Assigned to a  Project owned by the currently authenticated user.
@@ -275,11 +275,11 @@ The API endpoint may refuse to complete the request if the authenticated user ha
                     },                    
             }
 
-## Tasks [/project/{id1}/tasks/{id2}]
+## Tasks [/project/{project_id}/tasks/{task_id}]
 
 + Parameters
-    + id1   (required, number, `4`)... project `id` number
-    + id2   (required, number, `1`)... task `id` number
+    + project_id   (required, number, `4`)
+    + task_id   (required, number, `1`)
 
 ### View Tasks [GET]
 
@@ -346,10 +346,10 @@ The API endpoint may refuse to complete the request if the authenticated user ha
 # Group Team 
 Access to Project Team Resources
 
-## Add Team [/projects/{id}/team]
+## Add Team [/projects/{project_id}/team]
 
 + Parameters
-    + id   (required, number, `4`)... project `id` number
+    + project_id(required, number, `4`)
 
 ### Add Team [PUT]
 
@@ -380,11 +380,11 @@ Access to Project Team Resources
                 "createdAt":"2017-12-01 13:21:14"
             }
 
-## Team [/projects/{id1}/team/{id2}]
+## Team [/projects/{project_id}/team/{team_id}]
 
 + Parameters
-    + id1   (required, number, `2`)... project `id` number
-    + id2   (required, number, `1`)... task `id` number
+    + project_id(required, number, `2`)
+    + team_id(required, number, `1`)
 
 
 ### View Team [GET]
