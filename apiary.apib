@@ -369,20 +369,16 @@ Access to Project Team Resources
 
     + Headers 
         
-            Location: /projects/:id
+            Location: /teams/:id
     
     + Body
     
             {
-                "team_id": 1
                 "TeamName" : "Artisan"
                 "TeamInfo" : "Artisan is a team of back-end craftsmen"
                 "createdAt" : "2017-6-21 08:12:05"
             }
-
-
-###
-
+            
 ## Team [/teams/{team_id}]
 
 ### Edit Team [PUT]
@@ -407,7 +403,7 @@ Access to Project Team Resources
 
     + Headers 
         
-            Location: /team:id
+            Location: /teams:id
     
     + Body
     
@@ -452,6 +448,34 @@ Access to Project Team Resources
 
 ### Create Department [POST]
 
++ Request (application/json)
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    + Body
+            
+            {
+                "departmentName" : "Sales"
+                "departmentInfo" : "They close the deal, doesn't seem like too much work"
+            }    
+        
+            
+            
++ Response 201 (application/json)
+
+    + Headers 
+        
+            Location: /departments/:id
+    
+    + Body
+    
+            {
+                "departmentName" : "Sales"
+                "departmentInfo" : "They close the deal, doesn't seem like too much work"
+                "createdAt" : "2017-6-21 08:12:05"
+            }
+
 ## View Departments [/company/{company_id}/departments{?page,size}]
 
 ### View Departments[GET]
@@ -467,14 +491,15 @@ Access to Project Team Resources
             x-api-version: 1.0
     
 + Response 200 (application/json)
- 
+
     + Headers
         
             ETag : "euyfewuyfvew76f7"
             cache-control: max-age=600
-    + Body        
+    + Body
         
             {
+                                    
                 "page":
                 {
                     "number":1,
@@ -503,18 +528,108 @@ Access to Project Team Resources
                     }
                 ]
             }
-                    
-## Department [/company/{company_id}/departments/{department_id}]
+
+## Department [/company/{company_id}/departments/{department_id\}]
 
 ### Edit Department [PUT]
 
++ Request (application/json)
+
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    + Body
+            
+            {
+                "departmentName" : "Design"
+                "departmentInfo" : "They make everything look shiny and they really shouldn't be with marketing"
+            }     
+        
+            
+            
++ Response 200 (application/json)
+
+    + Headers 
+        
+            Location: /departments:id
+    
+    + Body
+    
+            {
+                "departmentName" : "Design"
+                "departmentInfo" : "They make everything look shiny and they really shouldn't be with marketing"
+                "createdAt" : "2017-6-21 08:12:05"
+                "updatedAT": "2018-02-31 03:20:00"
+            }
+
 ### View Department [GET]
+
++ Request
+
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    
++ Response 200 (application/json)
+ 
+    + Headers
+        
+            ETag : "euyfewuyfvew76f7"
+            cache-control: max-age=600
+
+    + Body
+    
+            {
+                "departmentName" : "Design"
+                "departmentInfo" : "They make everything look great and they really shouldn't be with marketing"
+                "createdAt" : "2017-6-21 08:12:05"
+                "updatedAt" : "2017-12-01 13:21:14"
+            }
 
 ### Delete Department [DELETE]
 
++ Response 204
 
-# Group Company 
+# Group Company
 
-# Group Employee 
+## Create Company [/company/add]
 
-# Notice Board
+### Create Company[POST]
+
+
++ Request (application/json)
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    + Body
+            
+            {
+                "companyName" : "Gaagle"
+                "companyInfo" : "We build everything"
+                "companyImagePath" : "http//factory.zone/Projects?id=1/image.png"
+            }    
+        
+            
+            
++ Response 201 (application/json)
+
+    + Headers 
+        
+            Location: /departments/:id
+    
+    + Body
+    
+            {
+                "departmentName" : "Sales"
+                "departmentInfo" : "They close the deal, doesn't seem like too much work"
+                "createdAt" : "2017-6-21 08:12:05"
+            }
+
+
+
+# Group User 
+
+# Group Notice Board
