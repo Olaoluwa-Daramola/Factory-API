@@ -9,7 +9,7 @@ Access to Project Resources
 
 All requests must be authenticated 
 
-## Projects [/projects{?page,size}]
+## Projects [/projects{?search_param,page,size}]
 
 ### Create Project [POST]
 Create a Project owned by the currently authenticated user.
@@ -24,6 +24,7 @@ The API endpoint may refuse to complete the request if the authenticated user ha
     + Body
             
             {
+                "user_id": 2
                 "company_id" : 1
                 "department_id" : 2
                 "projectName" : "Loon"
@@ -43,6 +44,7 @@ The API endpoint may refuse to complete the request if the authenticated user ha
     + Body
     
             {
+                "user_id":2
                 "company_id":1
                 "department_id": 2
                 "project_id": 1
@@ -85,6 +87,7 @@ The API endpoint may refuse to complete the request if the authenticated user ha
                 "projects":
                 [
                     {
+                        "user_id":5
                         "company_id":3
                         "department_id": 2
                         "project_id": 1
@@ -97,6 +100,7 @@ The API endpoint may refuse to complete the request if the authenticated user ha
                         "is_archived": false
                     },
                     {
+                        "user_id":2
                         "company_id":1
                         "department_id": 3
                         "project_id": 1
@@ -109,6 +113,7 @@ The API endpoint may refuse to complete the request if the authenticated user ha
                         "is_archived": false
                     },
                     {
+                        "user_id":3
                         "company_id":1
                         "department_id": 3
                         "project_id": 1
@@ -146,6 +151,7 @@ The API endpoint may refuse to complete the request if the authenticated user ha
     + Body
             
             {
+                "user_id" : 3  
                 "company_id" : 1
                 "department_id" : 2
                 "projectName" : "Ara"
@@ -186,6 +192,9 @@ The API endpoint may refuse to complete the request if the authenticated user ha
     + Body
     
             {
+                "company_id":1
+                "department_id":2
+                "user_id":4
                 "projectName" : "Loon"
                 "projectImagePath" : "http//factory.zone/Projects?id=1/image.png"
                 "projectDescription" : "Make Baloons That Grant Internet Access"
@@ -203,7 +212,7 @@ The API endpoint may refuse to complete the request if the authenticated user ha
 # Group Task 
 Access to Project Task Resources
 
-## Tasks [/projects/{project_id}/tasks/]
+## Tasks [/projects/{project_id}/tasks/{?page,size}]
 
 + Parameters
     + project_id(required, number,`1`)
@@ -238,6 +247,10 @@ The API endpoint may refuse to complete the request if the authenticated user ha
     + Body
     
             {
+                "company_id":1
+                "department_id":2
+                "user_id":3
+                "project_id":2
                 "task_id":1
                 "taskName" : "Research"
                 "taskDescription" : "Make findings into the proposed project"
@@ -248,6 +261,10 @@ The API endpoint may refuse to complete the request if the authenticated user ha
             }
 
 ### List Tasks [GET]
+
++ Parameters
+    + page(required, number,`1`)...'page' number
+    + size(required, number, `10`)... page 'size'
 
 + Request
 
@@ -268,6 +285,10 @@ The API endpoint may refuse to complete the request if the authenticated user ha
                 "tasks":
                 [
                     {
+                        "company_id":1
+                        "department_id":2
+                        "user_id":3
+                        "project_id":2
                         "taskName" : "Research"
                         "taskDescription" : "Carry out research for project"
                         "createdAt" : "2017-6-21 08:12:05"
@@ -275,6 +296,10 @@ The API endpoint may refuse to complete the request if the authenticated user ha
                         "taskDeadline" : "2017-12-01 13:21:14"
                     },
                     {
+                        "company_id":1
+                        "department_id":2
+                        "user_id":3
+                        "project_id":2
                         "taskName" : "Develop Wireframe"
                         "taskDescription" : "Design Wireframe for project"
                         "createdAt" : "2017-6-21 08:30:15"
@@ -282,6 +307,10 @@ The API endpoint may refuse to complete the request if the authenticated user ha
                         "taskDeadline" : "2017-12-07 08:30:14"
                     },
                     {
+                        "company_id":1
+                        "department_id":2
+                        "user_id":3
+                        "project_id":2
                         "taskName" : "Design Mock-up"
                         "taskDescription" : "Design Mock-up for project"
                         "createdAt" : "2017-6-21 08:40:05"
@@ -314,6 +343,10 @@ The API endpoint may refuse to complete the request if the authenticated user ha
     + Body
             
             {
+                "company_id":1
+                "department_id":2
+                "user_id":3
+                "project_id":2
                 "company_id": 1
                 "department_id": 2
                 "project_id":1
@@ -353,6 +386,7 @@ The API endpoint may refuse to complete the request if the authenticated user ha
             {
                 "company_id": 1
                 "department_id": 2
+                "user_id":2
                 "project_id":1
                 "taskName" : "Draw Wireframe"
                 "taskDescription" : "Make Wireframe of the project"
@@ -367,7 +401,7 @@ The API endpoint may refuse to complete the request if the authenticated user ha
 # Group Team 
 Access to Project Team Resources
 
-## Create Team [/teams/add]
+## Teams [/teams{?page,size}]
 
 ### Create Team [POST]
 
@@ -397,10 +431,70 @@ Access to Project Team Resources
             {
                 "company_id": 1
                 "department_id": 2
+                "user_id":1
                 "team_id":2
                 "TeamName" : "Artisan"
                 "TeamInfo" : "Artisan is a team of back-end craftsmen"
                 "createdAt" : "2017-6-21 08:12:05"
+            }
+
+### List Teams [GET]
+
++ Parameters
+    + page(required, number,`1`)...'page' number
+    + size(required, number, `10`)... page 'size'
+
++ Request
+
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    
++ Response 200 (application/json)
+ 
+    + Headers
+        
+            ETag : "euyfewuyfvew76f7"
+            cache-control: max-age=600
+    + Body
+            
+            {
+                "tasks":
+                [
+                    {
+                        "company_id":1
+                        "department_id":2
+                        "user_id":3
+                        "project_id":2
+                        "taskName" : "Research"
+                        "taskDescription" : "Carry out research for project"
+                        "createdAt" : "2017-6-21 08:12:05"
+                        "taskStatus" :3
+                        "taskDeadline" : "2017-12-01 13:21:14"
+                    },
+                    {
+                        "company_id":1
+                        "department_id":2
+                        "user_id":3
+                        "project_id":2
+                        "taskName" : "Develop Wireframe"
+                        "taskDescription" : "Design Wireframe for project"
+                        "createdAt" : "2017-6-21 08:30:15"
+                        "taskStatus" :1
+                        "taskDeadline" : "2017-12-07 08:30:14"
+                    },
+                    {
+                        "company_id":1
+                        "department_id":2
+                        "user_id":3
+                        "project_id":2
+                        "taskName" : "Design Mock-up"
+                        "taskDescription" : "Design Mock-up for project"
+                        "createdAt" : "2017-6-21 08:40:05"
+                        "taskStatus" :2
+                        "taskDeadline" : "2018-01-01 00:00:00"
+                    },                    
             }
             
 ## Team [/teams/{team_id}]
@@ -432,6 +526,10 @@ Access to Project Team Resources
     + Body
     
             {
+                "company_id": 1
+                "department_id": 2
+                "user_id":1
+                "team_id":2                
                 "TeamName" : "Artisan"
                 "TeamInfo" : "Artisan is a team of back-end ninjas"
                 "updatedAT": "2018-02-31 03:20:00"
@@ -458,6 +556,7 @@ Access to Project Team Resources
             {
                 "company_id": 1
                 "department_id": 2
+                "user_id":3
                 "team_id":2
                 "teamName": "DreamTeam"
                 "teamInfo": "Best team in the land"
@@ -471,7 +570,7 @@ Access to Project Team Resources
 
 # Group Department
 
-## Create Department [/company/{company_id}/departments{?page,size}]
+## Departments [/company/{company_id}/departments{?page,size}]
 
 ### Create Department [POST]
 
@@ -498,6 +597,7 @@ Access to Project Team Resources
     + Body
     
             {
+                "user_id":1
                 "company_id":1
                 "department_id":1
                 "departmentName" : "Sales"
@@ -505,7 +605,7 @@ Access to Project Team Resources
                 "createdAt" : "2017-6-21 08:12:05"
             }
 
-### View Departments[GET]
+### List Departments[GET]
 
 + Parameters
     + page(required, number,`1`)...'page' number
@@ -536,6 +636,7 @@ Access to Project Team Resources
                 "departments":
                 [
                     {
+                        "user_id":1
                         "company_id":1
                         "department_id":1
                         "departmentName" : "Design"
@@ -544,6 +645,7 @@ Access to Project Team Resources
                         "updatedAt" : "2017-12-01 13:21:14"
                     },
                     {
+                        "user_id":1
                         "company_id":1
                         "department_id":2
                         "departmentName" : "Marketing"
@@ -552,6 +654,7 @@ Access to Project Team Resources
                         "updatedAt" : "2017-12-01 13:21:14"
                     },
                     {
+                        "user_id":2
                         "company_id":1
                         "department_id":3
                         "departmentName" : "Sales"
@@ -590,6 +693,7 @@ Access to Project Team Resources
     + Body
     
             {
+                "user_id":1
                 "company_id":1
                 "department_id":1
                 "departmentName" : "Design"
@@ -599,7 +703,6 @@ Access to Project Team Resources
             }
 
 ### View Department [GET]
-
 + Request
 
     +   Headers 
@@ -617,6 +720,7 @@ Access to Project Team Resources
     + Body
     
             {
+                "user_id":2
                 "company_id":1
                 "department_id":1
                 "departmentName" : "Design"
@@ -631,7 +735,7 @@ Access to Project Team Resources
 
 # Group Company
 
-## Create Company [/company]
+## Company [/company{?page,size}]
 
 ### Create Company[POST]
 
@@ -661,7 +765,8 @@ Access to Project Team Resources
     + Body
     
             {
-                
+                "user_id":2
+                "company_id":1
                 "companyName" : "Gaagle"
                 "companyDescription" : "We build everything"
                 "companyImagePath" : "http//factory.zone/Projects?id=1/image.png"
@@ -670,6 +775,133 @@ Access to Project Team Resources
 
             }
 ###
+
+### List Companies [GET]
+
++ Parameters
+    + page(required, number,`1`)...'page' number
+    + size(required, number, `10`)... page 'size'
+
++ Request
+
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    
++ Response 200 (application/json)
+ 
+    + Headers
+        
+            ETag : "euyfewuyfvew76f7"
+            cache-control: max-age=600
+
+    + Body
+            
+            {
+                                    
+                "page":
+                {
+                    "number":1,
+                    "size":10 
+                    "totalPages": 20
+                },
+                "companies":
+                [
+                    {
+                        "user_id":2
+                        "company_id": 1
+                        "companyName" : "Gaagle"
+                        "companyDescription" : "We build everything"
+                        "companyImagePath" : "http//factory.zone/Projects?id=1/image.png"
+                        "companyURL" : "gaagle.factory.zone"
+                        "createdAt":"2017-12-01 13:21:14"
+                        "updatedAt": "2017-12-01 21:00:00"
+                    },
+                    {
+                        "user_id":2
+                        "company_id": 3
+                        "companyName" : "Amzin"
+                        "companyDescription" : "We sell everything"
+                        "companyImagePath" : "http//factory.zone/Projects?id=1/image.png"
+                        "companyURL" : "amzin.factory.zone"
+                        "createdAt":"2017-12-01 13:21:14"
+                        "updatedAt": "2017-12-01 21:00:00"
+                    }
+                ]
+            }
+
+### Edit Company [PUT]
++ Request (application/json)
+
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    + Body
+            
+            {
+                "companyName" : "Gaagle"
+                "companyDescription" : "We build life"
+                "companyImagePath" : "http//factory.zone/Projects?id=1/image.png"
+                "companyURL" : "gaagle.factory.zone"
+            }     
+        
+            
+            
++ Response 200 (application/json)
+
+    + Headers 
+        
+            Location: /departments:id
+    
+    + Body
+    
+            {
+                "user_id":1
+                "company_id":1
+                "companyName" : "Gaagle"
+                "companyDescription" : "We build life"
+                "companyImagePath" : "http//factory.zone/Projects?id=1/image.png"
+                "companyURL" : "gaagle.factory.zone"
+                "createdAt" : "2017-6-21 08:12:05"
+                "updatedAT": "2018-02-31 03:20:00"
+            }
+
+## Companies [/company/{company_id}]
+
+### View Comapany [GET]
++ Request
+
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    
++ Response 200 (application/json)
+ 
+    + Headers
+        
+            ETag : "euyfewuyfvew76f7"
+            cache-control: max-age=600
+
+    + Body
+    
+            {
+                "companyName" : "Gaagle"
+                "companyDescription" : "We build everything"
+                "companyImagePath" : "http//factory.zone/Projects?id=1/image.png"
+                "companyURL" : "gaagle.factory.zone"
+                "user_id":2
+                "company_id":1
+                "createdAt" : "2017-6-21 08:12:05"
+                "updatedAt" : "2017-12-01 13:21:14"
+            }
+            
+### Delete Department [DELETE]
+
++ Response 204
+
 # Group User 
 
 # Group Notice Board
