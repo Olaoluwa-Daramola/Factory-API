@@ -24,9 +24,6 @@ The API endpoint may refuse to complete the request if the authenticated user ha
     + Body
             
             {
-                "user_id": 2
-                "company_id" : 1
-                "department_id" : 2
                 "projectName" : "Loon"
                 "projectImagePath" : "http//factory.zone/Projects?id=1/image.png"
                 "projectDescription" : "Make Internet Baloons"
@@ -230,7 +227,6 @@ The API endpoint may refuse to complete the request if the authenticated user ha
     + Body
             
             {
-                "project_id" : "1"
                 "taskName" : "Research"
                 "taskDescription" : "Make findings into the proposed project"
                 "taskDeadline" : "2018-01-31 00:00:01"
@@ -415,7 +411,6 @@ Access to Project Team Resources
             {
                 "TeamName" : "Artisan"
                 "TeamInfo" : "Artisan is a team of back-end craftsmen"
-                "project_id": 1
             }    
         
             
@@ -431,6 +426,7 @@ Access to Project Team Resources
             {
                 "company_id": 1
                 "department_id": 2
+                "project_id":1
                 "user_id":1
                 "team_id":2
                 "TeamName" : "Artisan"
@@ -497,7 +493,10 @@ Access to Project Team Resources
                     },                    
             }
             
-## Team [/teams/{team_id}]
+
+## Teams [/teams/{team_id}]
++ Parameters
+    + team_id(required, number,`1`)
 
 ### Edit Team [PUT]
 
@@ -571,6 +570,9 @@ Access to Project Team Resources
 # Group Department
 
 ## Departments [/company/{company_id}/departments{?page,size}]
++ Parameters
+    + company_id(required, number,`1`)
+    
 
 ### Create Department [POST]
 
@@ -666,7 +668,9 @@ Access to Project Team Resources
             }
 
 ## Department [/company/{company_id}/departments/{department_id}]
-
++ Parameters
+    + company_id(required, number,`1`)
+    + department_id(required, number, `2`)
 ### Edit Department [PUT]
 
 + Request (application/json)
@@ -735,7 +739,7 @@ Access to Project Team Resources
 
 # Group Company
 
-## Company [/company{?page,size}]
+## Companies [/company{?page,size}]
 
 ### Create Company[POST]
 
@@ -831,6 +835,39 @@ Access to Project Team Resources
                 ]
             }
 
+
+## Company [/company/{company_id}]
++ Parameters
+    + company_id(required, number,`1`)
+
+### View Company [GET]
++ Request
+
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    
++ Response 200 (application/json)
+ 
+    + Headers
+        
+            ETag : "euyfewuyfvew76f7"
+            cache-control: max-age=600
+
+    + Body
+    
+            {
+                "companyName" : "Gaagle"
+                "companyDescription" : "We build everything"
+                "companyImagePath" : "http//factory.zone/Projects?id=1/image.png"
+                "companyURL" : "gaagle.factory.zone"
+                "user_id":2
+                "company_id":1
+                "createdAt" : "2017-6-21 08:12:05"
+                "updatedAt" : "2017-12-01 13:21:14"
+            }
+            
 ### Edit Company [PUT]
 + Request (application/json)
 
@@ -866,39 +903,9 @@ Access to Project Team Resources
                 "companyURL" : "gaagle.factory.zone"
                 "createdAt" : "2017-6-21 08:12:05"
                 "updatedAT": "2018-02-31 03:20:00"
-            }
-
-## Companies [/company/{company_id}]
-
-### View Comapany [GET]
-+ Request
-
-    +   Headers 
+            }            
             
-            Authorization: Basic dXNlcjpwYXNzd29yZA==
-            x-api-version: 1.0
-    
-+ Response 200 (application/json)
- 
-    + Headers
-        
-            ETag : "euyfewuyfvew76f7"
-            cache-control: max-age=600
-
-    + Body
-    
-            {
-                "companyName" : "Gaagle"
-                "companyDescription" : "We build everything"
-                "companyImagePath" : "http//factory.zone/Projects?id=1/image.png"
-                "companyURL" : "gaagle.factory.zone"
-                "user_id":2
-                "company_id":1
-                "createdAt" : "2017-6-21 08:12:05"
-                "updatedAt" : "2017-12-01 13:21:14"
-            }
-            
-### Delete Department [DELETE]
+### Delete Company [DELETE]
 
 + Response 204
 
