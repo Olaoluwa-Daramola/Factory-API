@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: http://api.factory.zone/api/v1/
+HOST: http://factory.zone/api/v1/
 
 # Project API 
 Provides services for Project features 
@@ -29,9 +29,7 @@ The API endpoint may refuse to complete the request if the authenticated user ha
                 "projectDescription" : "Make Internet Baloons"
                 "projectDeadline" : "2018-01-31 00:00:01"
             }    
-        
-            
-            
+
 + Response 201 (application/json)
 
     + Headers 
@@ -513,9 +511,6 @@ Access to Project Team Resources
                 "TeamInfo" : "Artisan is a team of back-end ninjas"
                 "project_id": 1
             }     
-        
-            
-            
 + Response 200 (application/json)
 
     + Headers 
@@ -671,6 +666,7 @@ Access to Project Team Resources
 + Parameters
     + company_id(required, number,`1`)
     + department_id(required, number, `2`)
+
 ### Edit Department [PUT]
 
 + Request (application/json)
@@ -743,7 +739,6 @@ Access to Project Team Resources
 
 ### Create Company[POST]
 
-
 + Request (application/json)
     +   Headers 
             
@@ -778,7 +773,6 @@ Access to Project Team Resources
                 "createdAt":"2017-6-21 08:12:05"
 
             }
-###
 
 ### List Companies [GET]
 
@@ -834,8 +828,7 @@ Access to Project Team Resources
                     }
                 ]
             }
-
-
+            
 ## Company [/company/{company_id}]
 + Parameters
     + company_id(required, number,`1`)
@@ -869,6 +862,7 @@ Access to Project Team Resources
             }
             
 ### Edit Company [PUT]
+
 + Request (application/json)
 
     +   Headers 
@@ -882,15 +876,12 @@ Access to Project Team Resources
                 "companyDescription" : "We build life"
                 "companyImagePath" : "http//factory.zone/Projects?id=1/image.png"
                 "companyURL" : "gaagle.factory.zone"
-            }     
-        
-            
-            
+            }  
 + Response 200 (application/json)
 
-    + Headers 
+    + Headers
         
-            Location: /departments:id
+            Location: /company:id
     
     + Body
     
@@ -903,12 +894,177 @@ Access to Project Team Resources
                 "companyURL" : "gaagle.factory.zone"
                 "createdAt" : "2017-6-21 08:12:05"
                 "updatedAT": "2018-02-31 03:20:00"
-            }            
-            
-### Delete Company [DELETE]
+            }
 
+### Delete Company [DELETE]
 + Response 204
 
-# Group User 
+# Group Notice Board  
 
-# Group Notice Board
+## Notices [project/{project_id}/notice{?page,size}]
++ Parameters
+    + project_id(required, number,`2`)
+
+### Create Notice [POST]
+
++ Request (application/json)
+
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    + Body
+            
+            {
+                "title":"Launch in 24hrs"
+                "decription": "We launch project ARA in 24hrs"
+                "noticeType":"Launch"
+            }
+            
++ Response 201 (application/json)
+
+     + Headers 
+        
+            Location: /notice/:id
+    
+    + Body
+    
+            {
+                "company_id":1
+                "project_id":2
+                "notice_id":2
+                "title":"Launch in 24hrs"
+                "noticeType":"Launch"
+                "decription": "We launch project ARA in 24hrs"
+                "createdAt":"2017-6-21 08:12:05"
+
+            }
+            
+### List Notices [GET]
+
++ Parameters
+    + page(required, number,`1`)...'page' number
+    + size(required, number, `10`)... page 'size'
+
++ Request
+
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    
++ Response 200 (application/json)
+ 
+    + Headers
+        
+            ETag : "euyfewuyfvew76f7"
+            cache-control: max-age=600
+
+    + Body
+            
+            {
+                                    
+                "page":
+                {
+                    "number":1,
+                    "size":10 
+                    "totalPages": 20
+                },
+                "notices":
+                [
+                    {
+                        "notice_id":2
+                        "company_id":1
+                        "title":"Launch in 24hrs"
+                        "noticeType":"Launch"
+                        "decription": "We launch project ARA in 24hrs"
+                        "createdAt":"2017-6-21 08:12:05"
+                    },
+                    {
+                        "notice_id":4
+                        "company_id":2
+                        "title":"Waymo Discontinued"
+                        "noticeType":"Discontinued"
+                        "decription": "Project Waymo has been discontinued"
+                        "createdAt":"2017-6-21 08:12:05"
+                    }
+                    
+                ]
+            }
+
+## Notice [project/{project_id}/notice/{notice_id}]
++ Parameters
+    + project_id(required, number,`1`)
+
+### View Notice [GET]
++ Request
+
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    
++ Response 200 (application/json)
+ 
+    + Headers
+        
+            ETag : "euyfewuyfvew76f7"
+            cache-control: max-age=600
+
+    + Body
+    
+            {
+                "company_id":1
+                "department_id":1
+                "company_id":4
+                "user_id":5
+                "project_id":2
+                "notice_id":2
+                "title":"Launch in 24hrs"
+                "noticeType":"Launch"
+                "decription": "We launch project ARA in 24hrs"
+                "createdAt":"2017-6-21 08:12:05"
+            }
+
+### Edit Notice [PUT]
++ Request (application/json)
+
+    +   Headers 
+            
+            Authorization: Basic dXNlcjpwYXNzd29yZA==
+            x-api-version: 1.0
+    + Body
+            
+            {
+                "company_id":1
+                "deparment_id":3
+                "project_id":2
+                "user_id":23
+                "notice_id":2
+                "title":"Launch in 24hrs"
+                "noticeType":"Launch"
+                "decription": "We launch project ARA in 24hrs"
+                "createdAt":"2017-6-21 08:12:05"
+            }  
++ Response 200 (application/json)
+
+    + Headers
+        
+            Location: /company:id
+    
+    + Body
+    
+            {
+                "company_id":1
+                "deparment_id":3
+                "project_id":2
+                "user_id":23
+                "notice_id":2
+                "title":"Launch in 12hrs"
+                "noticeType":"Launch"
+                "decription": "We launch project ARA in 24hrs"
+                "createdAt":"2017-6-21 08:12:05"
+            }
+
+### Delete Notice [DELETE]
++ Response 204
